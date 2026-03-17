@@ -1,9 +1,12 @@
-import React from 'react'
+import NavBar from "../components/base/NavBar";
 
 function Index() {
   return (
-    <div>index</div>
-  )
+    <div className="min-h-screen bg-background">
+      <NavBar />
+    
+    </div>
+  );
 }
 
-export default Index
+export default Index;
