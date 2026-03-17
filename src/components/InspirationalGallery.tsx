@@ -23,23 +23,29 @@ const items = [
 
 const InspirationGallery = () => {
   const [active, setActive] = useState("All");
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
       { threshold: 0.05 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
-  const filtered = active === "All" ? items : items.filter((i) => i.category === active);
+  const filtered =
+    active === "All" ? items : items.filter((i) => i.category === active);
 
   return (
     <section className="py-24 md:py-36 section-padding" ref={ref}>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
+        {/* Heading */}
         <div className="text-center mb-12">
           <p className="font-sans text-xs uppercase tracking-[0.25em] text-primary mb-4">
             Inspiration
@@ -54,7 +60,10 @@ const InspirationGallery = () => {
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActive(cat)}
+              onClick={() => {
+                setActive(cat);
+                setActiveIndex(null); // reset open card
+              }}
               className={`font-sans text-xs uppercase tracking-[0.15em] px-5 py-2 rounded-full transition-all duration-300 ${
                 active === cat
                   ? "bg-primary text-primary-foreground"
@@ -68,30 +77,66 @@ const InspirationGallery = () => {
 
         {/* Masonry */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-          {filtered.map((item, i) => (
-            <div
-              key={item.title}
-              className={`break-inside-avoid group cursor-pointer transition-all duration-700 ease-studio ${
-                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-              }`}
-              style={{ transitionDelay: `${i * 60}ms` }}
-            >
-              <div className={`relative overflow-hidden rounded-2xl ${item.aspect}`}>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-studio group-hover:scale-[1.06]"
-                />
-                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/30 transition-all duration-500" />
-                <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-studio">
-                  <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-background/70">
-                    {item.category}
-                  </span>
-                  <p className="font-serif text-lg text-background font-light">{item.title}</p>
+          {filtered.map((item, i) => {
+            const isActive = activeIndex === i;
+
+            return (
+              <div
+                key={item.title}
+                onClick={() =>
+                  setActiveIndex(isActive ? null : i)
+                }
+                className={`break-inside-avoid group cursor-pointer transition-all duration-700 ease-studio ${
+                  visible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-6"
+                }`}
+                style={{ transitionDelay: `${i * 60}ms` }}
+              >
+                <div
+                  className={`relative overflow-hidden rounded-2xl ${item.aspect}`}
+                >
+                  {/* Image */}
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className={`w-full h-full  object-cover transition-transform duration-700 ease-studio
+                    ${isActive ? "scale-[1.06]" : ""}
+                    group-hover:scale-[1.06]`}
+                  />
+
+                  {/* Overlay */}
+                  <div
+                    className={`absolute inset-0 transition-all duration-500
+                    ${
+                      isActive
+                        ? "bg-foreground/30"
+                        : "bg-foreground/0"
+                    }
+                    group-hover:bg-foreground/30`}
+                  />
+
+                  {/* Text */}
+                  <div
+                    className={`absolute bottom-4 left-4 right-4 transition-all duration-500 ease-studio
+                    ${
+                      isActive
+                        ? "translate-y-0 opacity-100"
+                        : "translate-y-4 opacity-0"
+                    }
+                    group-hover:translate-y-0 group-hover:opacity-100`}
+                  >
+                    <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-background/70">
+                      {item.category}
+                    </span>
+                    <p className="font-serif text-lg text-background font-light">
+                      {item.title}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

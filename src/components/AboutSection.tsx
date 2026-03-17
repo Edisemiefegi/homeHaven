@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import designerImage from "@/assets/images/designer-portrait.jpg";
+import designerImage from "@/assets/images/designer-portrait.jpeg";
 
 const AboutSection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -45,7 +45,7 @@ const AboutSection = () => {
           </h2>
           <div className="prose-width space-y-4 text-muted-foreground font-sans leading-relaxed">
             <p>
-              Elena Marchetti founded Studio Haven in 2012 with a conviction that interior design should be invisible —
+              Elena Marchetti founded Studio Haven in 2012 with a conviction that interior design should be invisible,
               felt deeply but never forced. Her approach draws from architectural history, material honesty, and the quiet rituals of daily life.
             </p>
             <p>

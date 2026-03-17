@@ -91,13 +91,17 @@ const ProjectCard = ({
           src={project.image}
           alt={project.name}
           className={`w-full h-full object-cover transition-transform duration-700 ease-studio 
-${active ? "scale-[1.04]" : ""} group-hover:scale-[1.04]`}
+          ${active ? "scale-[1.04]" : ""} group-hover:scale-[1.04]`}
         />
         <div
           className={`absolute inset-0 bg-gradient-to-t from-haven-charcoal/40 to-transparent transition-opacity duration-500 
-${active ? "opacity-100" : "opacity-0"} group-hover:opacity-100`}
+          ${active ? "opacity-100" : "opacity-0"} group-hover:opacity-100`}
         />
-        <div className="absolute bottom-8 left-8 right-8 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-studio">
+        <div
+          className={`absolute bottom-6 left-6 right-6 transition-all duration-500 ease-studio
+${active ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}
+group-hover:translate-y-0 group-hover:opacity-100`}
+        >
           <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-haven-cream/80 mb-2">
             {project.type} · {project.location}
           </p>
