@@ -3,23 +3,28 @@ import { useEffect, useRef, useState } from "react";
 const services = [
   {
     title: "Residential Interior Design",
-    description: "Complete interior transformations for homes, from concept to completion. We create spaces that reflect your personality and lifestyle.",
+    description:
+      "Complete interior transformations for homes, from concept to completion. We create spaces that reflect your personality and lifestyle.",
   },
   {
     title: "Commercial Interior Design",
-    description: "Thoughtful commercial spaces that enhance brand identity and create memorable experiences for clients and employees.",
+    description:
+      "Thoughtful commercial spaces that enhance brand identity and create memorable experiences for clients and employees.",
   },
   {
     title: "Renovation & Remodeling",
-    description: "Breathing new life into existing spaces through strategic renovation, preserving character while introducing modern comfort.",
+    description:
+      "Breathing new life into existing spaces through strategic renovation, preserving character while introducing modern comfort.",
   },
   {
     title: "Interior Styling & Decoration",
-    description: "Curated styling services that elevate your space with carefully selected furnishings, art, and accessories.",
+    description:
+      "Curated styling services that elevate your space with carefully selected furnishings, art, and accessories.",
   },
   {
     title: "Space Planning",
-    description: "Optimized spatial layouts that maximize flow, function, and natural light for residential and commercial environments.",
+    description:
+      "Optimized spatial layouts that maximize flow, function, and natural light for residential and commercial environments.",
   },
 ];
 
@@ -29,8 +34,10 @@ const ServicesSection = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1 }
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.1 },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -53,7 +60,9 @@ const ServicesSection = () => {
             <div
               key={service.title}
               className={`group p-8 md:p-10 rounded-3xl bg-secondary hover:bg-card transition-all duration-500 ease-studio cursor-default ${
-                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                visible
+                  ? "opacity-100 translate-y-0 scale-100 blur-0"
+                  : "opacity-0 translate-y-10 scale-95 blur-sm"
               }`}
               style={{
                 transitionDelay: `${i * 80}ms`,
@@ -61,7 +70,7 @@ const ServicesSection = () => {
               }}
             >
               <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-                <div className="w-2 h-2 rounded-full bg-primary" />
+                <div className="w-2 h-2 animate-pulse rounded-full bg-primary" />
               </div>
               <h3 className="font-serif text-xl md:text-2xl font-medium mb-3 text-foreground">
                 {service.title}

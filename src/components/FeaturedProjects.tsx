@@ -60,6 +60,7 @@ const ProjectCard = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,20 +76,27 @@ const ProjectCard = ({
   return (
     <div
       ref={ref}
+      onClick={() => setActive((prev) => !prev)}
       className={`group cursor-pointer transition-all duration-700 ease-studio ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
       }`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
       <div
-        className={`relative overflow-hidden rounded-3xl bg-secondary ${project.aspect}`}
+        className={`relative overflow-hidden rounded-3xl bg-secondary 
+  ${project.aspect} sm:${project.aspect}`}
       >
+        {" "}
         <img
           src={project.image}
           alt={project.name}
-          className="w-full h-full object-cover transition-transform duration-700 ease-studio group-hover:scale-[1.04]"
+          className={`w-full h-full object-cover transition-transform duration-700 ease-studio 
+${active ? "scale-[1.04]" : ""} group-hover:scale-[1.04]`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-haven-charcoal/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div
+          className={`absolute inset-0 bg-gradient-to-t from-haven-charcoal/40 to-transparent transition-opacity duration-500 
+${active ? "opacity-100" : "opacity-0"} group-hover:opacity-100`}
+        />
         <div className="absolute bottom-8 left-8 right-8 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-studio">
           <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-haven-cream/80 mb-2">
             {project.type} · {project.location}
@@ -118,7 +126,8 @@ const FeaturedProjects = () => {
           </h2>
         </div>
 
-        <div className="columns-1 md:columns-2 gap-6 space-y-6">
+        <div className="columns-1 sm:columns-2 md:columns-2 gap-4 sm:gap-6 space-y-4 sm:space-y-6 max-w-5xl mx-auto">
+          {" "}
           {projects.map((project, i) => (
             <div key={project.name} className="break-inside-avoid">
               <ProjectCard project={project} index={i} />

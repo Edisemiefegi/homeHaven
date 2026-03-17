@@ -76,7 +76,7 @@ const Story = () => {
     >
       <div className="grid md:grid-cols-2 h-full">
         {/* Image */}
-        <div className="relative overflow-hidden">
+        <div className="relative md:col-span-1 col-span-2 overflow-hidden">
           {stages.map((stage, i) => (
             <img
               key={i}
@@ -92,12 +92,11 @@ const Story = () => {
         </div>
 
         {/* Text */}
-        <div className="flex items-center section-padding bg-background">
-          <div className="max-w-lg relative">
+        <div className="flex   items-center section-padding bg-background">
             {stages.map((stage, i) => (
               <div
                 key={i}
-                className={`absolute transition-all duration-700 ${
+                className={`absolute transition-all duration-700 overflow-x-scroll   w-fit ${
                   i === activeIndex
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
@@ -114,9 +113,10 @@ const Story = () => {
                 </p>
               </div>
             ))}
+          
 
             {/* Dots */}
-            <div className="flex gap-2 mt-10">
+            <div className="flex gap-2 absolute bottom-6">
               {stages.map((_, i) => (
                 <div
                   key={i}
@@ -126,7 +126,6 @@ const Story = () => {
                   }`}
                 />
               ))}
-            </div>
           </div>
         </div>
       </div>
