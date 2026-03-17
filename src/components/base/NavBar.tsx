@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { Button } from "../ui/button";
 
 function NavBar() {
-const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -16,10 +17,10 @@ const [isOpen, setIsOpen] = useState(false);
     { label: "Process", href: "#process" },
     { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" },
-  ];    
+  ];
 
   return (
-<nav
+    <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-studio ${
         scrolled
           ? "bg-background/90 backdrop-blur-md shadow-[var(--shadow-elegant)]"
@@ -27,12 +28,15 @@ const [isOpen, setIsOpen] = useState(false);
       }`}
     >
       <div className="section-padding flex items-center justify-between h-20">
-        <a href="#" className="font-serif text-2xl font-light tracking-tight text-foreground">
+        <a
+          href="#"
+          className="font-serif text-2xl font-light tracking-tight text-foreground"
+        >
           Studio Haven
         </a>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="hidden lg:flex items-center lg:gap-10 gap-6">
           {navLinks.map((link) => (
             <a
               key={link.label}
@@ -42,18 +46,15 @@ const [isOpen, setIsOpen] = useState(false);
               {link.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            className="font-sans text-sm uppercase tracking-[0.15em] bg-primary text-primary-foreground px-6 py-2.5 rounded-lg hover:bg-primary/90 transition-colors duration-300"
-          >
-            Book Now
-          </a>
+          <Button>
+            <a href="#contact">Book Now</a>
+          </Button>
         </div>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="lg:hidden flex flex-col gap-1.5 p-2"
           aria-label="Toggle menu"
         >
           <span
@@ -71,7 +72,7 @@ const [isOpen, setIsOpen] = useState(false);
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden bg-background/95 backdrop-blur-lg overflow-hidden transition-all duration-500 ease-studio ${
+        className={`lg:hidden bg-background/95 backdrop-blur-lg overflow-hidden transition-all duration-500 ease-studio ${
           isOpen ? "max-h-96 pb-8" : "max-h-0"
         }`}
       >
@@ -86,16 +87,15 @@ const [isOpen, setIsOpen] = useState(false);
               {link.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            onClick={() => setIsOpen(false)}
-            className="font-sans text-sm uppercase tracking-[0.15em] bg-primary text-primary-foreground px-6 py-3 rounded-lg text-center"
-          >
-            Book Consultation
-          </a>
+          <Button>
+            <a href="#contact" onClick={() => setIsOpen(false)}>
+              Book Consultation
+            </a>
+          </Button>
         </div>
       </div>
-    </nav>  )
+    </nav>
+  );
 }
 
-export default NavBar
+export default NavBar;
